@@ -28,9 +28,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
     return Boolean(data.title && data.imdbId && data.imdbUrl && data.imgUrl);
   };
 
-  const handleSubmit = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isFormValid()) {
       return;
@@ -47,7 +45,11 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
   };
 
   return (
-    <form className="NewMovie" key={count}>
+    <form
+      className="NewMovie"
+      key={count}
+      onSubmit={event => handleSubmit(event)}
+    >
       <h2 className="title">Add a movie</h2>
 
       <TextField
@@ -96,7 +98,6 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
             data-cy="submit-button"
             className="button is-link"
             disabled={!isFormValid()}
-            onClick={event => handleSubmit(event)}
           >
             Add
           </button>
